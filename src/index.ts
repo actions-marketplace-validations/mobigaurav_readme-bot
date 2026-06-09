@@ -1,5 +1,5 @@
 /**
- * readme-bot — GitHub Action entrypoint.
+ * README Pilot — GitHub Action entrypoint.
  *
  * Reads the PR diff, asks an LLM to propose an updated README per scope,
  * and posts (or updates) a single comment with the suggested diff.
@@ -65,7 +65,7 @@ function readInputs(): Inputs {
     scopesRaw: core.getInput('scopes'),
     maxFiles: Number.parseInt(core.getInput('max-files') || '40', 10),
     maxDiffBytes: Number.parseInt(core.getInput('max-diff-bytes') || '40000', 10),
-    commentMarker: core.getInput('comment-marker') || '<!-- readme-bot:comment -->',
+    commentMarker: core.getInput('comment-marker') || '<!-- readme-pilot:comment -->',
     dryRun: core.getInput('dry-run') === 'true',
     failOnError: core.getInput('fail-on-error') === 'true',
   };
@@ -75,7 +75,7 @@ async function main(): Promise<void> {
   const inputs = readInputs();
 
   if (!context.payload.pull_request) {
-    core.info('No pull_request payload — skipping (run readme-bot on `pull_request` events).');
+    core.info('No pull_request payload — skipping (run README Pilot on `pull_request` events).');
     core.setOutput('suggestions-count', '0');
     return;
   }
@@ -269,7 +269,7 @@ function renderCommentBody(
 ): string {
   return [
     marker,
-    '## 📚 README Bot — suggested updates',
+    '## 📚 README Pilot — suggested updates',
     '',
     'I noticed code changes in this PR that may need matching README updates.',
     'Review the suggestions below and apply whatever you find useful.',
@@ -278,7 +278,7 @@ function renderCommentBody(
     '',
     '---',
     `_Generated with **${provider}** (\`${model}\`). ` +
-      `Powered by [readme-bot](https://github.com/mobigaurav/readme-bot)._`,
+      `Powered by [README Pilot](https://github.com/mobigaurav/readme-bot)._`,
   ].join('\n');
 }
 
@@ -287,7 +287,7 @@ main().catch(err => {
   if (core.getInput('fail-on-error') === 'true') {
     core.setFailed(msg);
   } else {
-    core.warning(`readme-bot soft-failed: ${msg}`);
+    core.warning(`README Pilot soft-failed: ${msg}`);
     core.setOutput('suggestions-count', '0');
   }
 });

@@ -1,4 +1,4 @@
-# 📚 README Bot
+# 📚 README Pilot
 
 > **Auto-suggest README updates on every pull request — powered by the LLM of your choice.**
 
@@ -21,7 +21,7 @@ Most projects' README slowly drifts away from the code:
 - A subdirectory grows a feature module, but the *Architecture* section is stale.
 - A new endpoint ships, but the *API* table doesn't list it.
 
-`readme-bot` reads the PR diff plus the current README, asks an LLM for the
+`README Pilot` reads the PR diff plus the current README, asks an LLM for the
 **smallest possible update** that keeps the README accurate, and shows you the
 result.
 
@@ -49,7 +49,7 @@ result.
 
 ```yaml
 # .github/workflows/readme-bot.yml
-name: README Bot
+name: README Pilot
 
 on:
   pull_request:
@@ -91,7 +91,7 @@ That's it. Open a PR, get a suggestion comment.
 | `scopes`          | no       | _(auto-discover)_                  | Newline- or comma-separated `<glob> -> <readme path>` rules.             |
 | `max-files`       | no       | `40`                               | Maximum changed files to include in the prompt per scope.                |
 | `max-diff-bytes`  | no       | `40000`                            | Byte cap on the diff payload sent to the LLM.                            |
-| `comment-marker`  | no       | `<!-- readme-bot:comment -->`      | Hidden marker used to locate and update the previous comment.            |
+| `comment-marker`  | no       | `<!-- readme-pilot:comment -->`    | Hidden marker used to locate and update the previous comment.            |
 | `dry-run`         | no       | `false`                            | If `true`, log the suggestion to the workflow log instead of commenting. |
 | `fail-on-error`   | no       | `false`                            | If `true`, fail the job on errors instead of soft-warning.               |
 
@@ -216,7 +216,7 @@ agreement with GitHub.
 
 You have three options:
 
-1. **Reference the published action** (simplest, once `readme-bot` is on a
+1. **Reference the published action** (simplest, once `README Pilot` is on a
    repo you control):
 
    ```yaml

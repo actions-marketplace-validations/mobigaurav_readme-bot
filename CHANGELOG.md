@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-06-09
 
 ### Added
-- Initial public release of README Bot.
+- Initial public release of README Pilot.
 - GitHub Action that posts a suggested README diff as a comment on every pull
   request, scoped to the README that owns each touched subtree.
 - **`github-models` provider** (default) — uses the workflow's built-in

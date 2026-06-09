@@ -1,4 +1,4 @@
-name: 'README Bot'
+name: 'README Pilot'
 description: 'Suggest README updates on a PR using your choice of LLM (GitHub Models, OpenAI, Anthropic, or Gemini).'
 author: 'mobigaurav'
 branding:
@@ -60,7 +60,7 @@ inputs:
   comment-marker:
     description: 'Hidden HTML marker used to find and update the previous comment in place.'
     required: false
-    default: '<!-- readme-bot:comment -->'
+    default: '<!-- readme-pilot:comment -->'
 
   dry-run:
     description: 'If true, log the suggestion to the action log instead of commenting on the PR.'

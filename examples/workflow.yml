@@ -1,4 +1,4 @@
-name: README Bot
+name: README Pilot
 
 on:
   pull_request:
