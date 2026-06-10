@@ -45,7 +45,13 @@ function readInputs(): Inputs {
       `Unsupported provider "${provider}". Use github-models | openai | anthropic | gemini.`,
     );
   }
-  const token = core.getInput('github-token', {required: true});
+  const token = core.getInput('github-token') || process.env.GITHUB_TOKEN || '';
+  if (!token) {
+    throw new Error(
+      'Missing github-token. Pass `with: github-token: ${{ github.token }}` ' +
+        'in your workflow, or export GITHUB_TOKEN as an env var.',
+    );
+  }
   const explicitKey = core.getInput('api-key');
   // For GitHub Models we can fall back to GITHUB_TOKEN — the workflow only
   // needs `models: read` permission. Other providers must supply their own key.

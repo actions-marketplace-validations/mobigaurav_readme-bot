@@ -7,9 +7,14 @@ branding:
 
 inputs:
   github-token:
-    description: 'GitHub token used to read the PR diff and post the suggestion comment. Defaults to ${{ github.token }}.'
+    description: |
+      GitHub token used to read the PR diff and post the suggestion comment.
+      Pass `${{ github.token }}` in your workflow `with:` block. The action
+      metadata cannot default this value because the `github` context is
+      unavailable in action defaults; we fall back to the `GITHUB_TOKEN` env
+      var if you set one explicitly.
     required: false
-    default: ${{ github.token }}
+    default: ''
 
   provider:
     description: 'LLM provider: github-models | openai | anthropic | gemini.'

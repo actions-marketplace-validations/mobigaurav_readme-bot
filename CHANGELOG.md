@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-06-10
+
+### Fixed
+- **Action metadata syntax error on newer runners.** The `github-token` input
+  previously defaulted to `${{ github.token }}`, which newer GitHub Actions
+  runners (>= 2.334.0) reject with `Unrecognized named-value: 'github'` because
+  the `github` context is not available in action metadata defaults — only
+  `env` and `inputs` are. The default is now `""`, and callers must pass
+  `github-token: ${{ github.token }}` explicitly in the workflow `with:`
+  block. The action also falls back to `process.env.GITHUB_TOKEN` if set.
+
+### Changed
+- README quick-start and `examples/workflow.yml` now show explicit
+  `github-token` in the `with:` block.
+
 ## [1.0.0] - 2026-06-09
 
 ### Added
@@ -31,5 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Single ~566 KB bundled `dist/index.js` with no vendor SDKs at runtime —
   native `fetch` only.
 
-[Unreleased]: https://github.com/mobigaurav/readme-bot/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/mobigaurav/readme-bot/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/mobigaurav/readme-bot/releases/tag/v1.0.1
 [1.0.0]: https://github.com/mobigaurav/readme-bot/releases/tag/v1.0.0

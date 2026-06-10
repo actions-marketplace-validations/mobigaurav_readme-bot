@@ -66,7 +66,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: mobigaurav/readme-bot@v1
-        # No api-key needed — GITHUB_TOKEN is used automatically.
+        with:
+          # Required: pass the workflow's GITHUB_TOKEN. The action cannot
+          # default this for you because the `github` context is unavailable
+          # in action metadata defaults.
+          github-token: ${{ github.token }}
+        # No api-key needed — GITHUB_TOKEN is reused as the GitHub Models key.
 ```
 
 ### Option B — Bring your own provider
@@ -74,6 +79,7 @@ jobs:
 ```yaml
       - uses: mobigaurav/readme-bot@v1
         with:
+          github-token: ${{ github.token }}
           provider: openai
           api-key: ${{ secrets.OPENAI_API_KEY }}
 ```
@@ -84,7 +90,7 @@ That's it. Open a PR, get a suggestion comment.
 
 | Input             | Required | Default                            | Description                                                              |
 | ----------------- | -------- | ---------------------------------- | ------------------------------------------------------------------------ |
-| `github-token`    | no       | `${{ github.token }}`              | Token used to read the PR diff and post a comment. Also used as the API key when `provider: github-models`. |
+| `github-token`    | yes      | `""`                               | Workflow token used to read the PR diff and post a comment. Pass `${{ github.token }}` explicitly — the action metadata cannot default this. Also reused as the GitHub Models API key when `provider: github-models`. |
 | `provider`        | no       | `github-models`                    | One of `github-models`, `openai`, `anthropic`, `gemini`.                 |
 | `api-key`         | depends  | `""`                               | API key for the chosen provider. **Optional for `github-models`** (falls back to `github-token`). Required for the other three. |
 | `model`           | no       | provider default                   | Override the default model. See defaults below.                          |
